@@ -26,5 +26,10 @@ show_qgrid_options_doc = """
 : dict
     Kwargs for qgrid.show_grid()
 """
-pd.core.config.register_option("display.use_qgrid", True, doc=use_qgrid_doc)
-pd.core.config.register_option("display.show_qgrid_options", {}, doc=show_qgrid_options_doc)
+try:
+    register_option = pd._config.config.register_option
+except AttributeError:
+    register_option = pd.core.config.register_option
+
+register_option("display.use_qgrid", True, doc=use_qgrid_doc)
+register_option("display.show_qgrid_options", {}, doc=show_qgrid_options_doc)
